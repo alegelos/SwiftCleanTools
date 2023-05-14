@@ -1,0 +1,14 @@
+//Generic strings
+"ok" = "OK";
+
+//Buttons
+"checkout_button_title" = "Checkout";
+
+//Alerts
+"friendly_error_alert_title" = "😣 Ouch!";
+"friendly_error_alert_message" = "Something went wrong, please try again later.";
+"empty_cart_error_alert_title" = "Your 🛒 is empty!";
+"empty_cart_error_alert_message" = "Try adding some items to your cart first.";
+
+//Titles
+"store_view_title" = "Sample Store";

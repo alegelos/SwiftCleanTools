@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StoreCell" rowHeight="100" id="nIh-OA-XN4" userLabel="StoreCell" customClass="StoreCell" customModule="CleanToolsExample" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nIh-OA-XN4" id="pa7-Hj-wuK">
+                <rect key="frame" x="0.0" y="0.0" width="393" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l2W-Xk-ZuC">
+                        <rect key="frame" x="8" y="0.0" width="377" height="100"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="100" verticalHuggingPriority="251" text="Item name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="g7F-cI-V28" userLabel="Product">
+                                <rect key="frame" x="0.0" y="0.0" width="187" height="100"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" name="B800"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7lV-zt-jEV">
+                                <rect key="frame" x="187" y="0.0" width="40" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="F7H-LM-Kpm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <state key="normal" title="-">
+                                    <color key="titleColor" name="Moradul600"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressRemoveItem:" destination="nIh-OA-XN4" eventType="touchUpInside" id="UEu-ob-La4"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="YSq-Yo-f3v" userLabel="Amount">
+                                <rect key="frame" x="227" y="0.0" width="40" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="6k3-KP-hMC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" name="B800"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yao-Ks-OYk">
+                                <rect key="frame" x="267" y="0.0" width="40" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="6rd-g2-8Nv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <state key="normal" title="+">
+                                    <color key="titleColor" name="Moradul600"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressAddItem:" destination="nIh-OA-XN4" eventType="touchUpInside" id="ndH-ns-XPt"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0000.00 €" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="D8s-Nh-TzK" userLabel="Price">
+                                <rect key="frame" x="307" y="0.0" width="70" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="fO5-yL-9oO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" name="B800"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <color key="backgroundColor" name="Moradul50"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="l2W-Xk-ZuC" secondAttribute="bottom" id="2Rw-Ug-PJi"/>
+                    <constraint firstItem="l2W-Xk-ZuC" firstAttribute="top" secondItem="pa7-Hj-wuK" secondAttribute="top" id="hDz-ww-WmX"/>
+                    <constraint firstItem="l2W-Xk-ZuC" firstAttribute="leading" secondItem="pa7-Hj-wuK" secondAttribute="leading" constant="8" id="pGW-Kr-wCA"/>
+                    <constraint firstAttribute="trailing" secondItem="l2W-Xk-ZuC" secondAttribute="trailing" constant="8" id="xeI-oX-5gV"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="amount" destination="YSq-Yo-f3v" id="D8d-Mu-26h"/>
+                <outlet property="price" destination="D8s-Nh-TzK" id="Zpl-9n-8x3"/>
+                <outlet property="title" destination="g7F-cI-V28" id="7w6-Kv-vv6"/>
+            </connections>
+            <point key="canvasLocation" x="140" y="20"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="B800">
+            <color red="0.16078431372549021" green="0.27843137254901962" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Moradul50">
+            <color red="0.98039215686274506" green="0.97254901960784312" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Moradul600">
+            <color red="0.44299998879432678" green="0.27099999785423279" blue="0.83899998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

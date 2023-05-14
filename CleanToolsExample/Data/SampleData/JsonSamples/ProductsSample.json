@@ -1,0 +1,21 @@
+{
+    "products":
+    [
+        {
+            "code": "123321"
+            ,"name": "Carrots",
+            "price": 5.0
+        },
+        {
+            "code": "312123",
+            "name": "Oranges",
+            "price": 2.5
+        },
+        {
+            "code": "231123",
+            "name": "Apples",
+            "price":7.55
+        }
+    ]
+    
+}

@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "AF31189E-8A8C-4F7A-A01D-E992B025033D",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "uiTestSampleData"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:CleanToolsExample.xcodeproj",
+      "identifier" : "3717D6BF2A113E1E00BBBFC5",
+      "name" : "CleanToolsExample"
+    }
+  },
+  "testTargets" : [
+
+  ],
+  "version" : 1
+}
