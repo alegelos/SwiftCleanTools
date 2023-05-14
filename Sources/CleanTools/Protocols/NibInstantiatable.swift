@@ -19,7 +19,17 @@ public extension NibInstantiatable {
 
 public extension NibInstantiatable where Self: UIView {
     
-    // Allows the instantiation of a UIView from a Nib.
+    /// Instantiates a UIView from a nib.
+    ///
+    /// This method allows you to create an instance of a UIView subclass from a nib file. The nib file should be located in the specified bundle and have the same name as the subclass. The method returns the view that is at the specified index in the nib file.
+    ///
+    /// - Parameters:
+    ///   - bundle: The bundle in which to look for the nib file. The default value is the bundle in which the UIView subclass is defined.
+    ///   - index: The index of the view in the nib file. The default value is 0.
+    ///
+    /// - Returns: The instantiated UIView.
+    ///
+    /// - Throws: An error of type `NibInstantiatableError` if the nib file could not be loaded, if the specified index is out of bounds, or if the view at the specified index in the nib file could not be cast to the UIView subclass.
     static func initFromNib(bundle: Bundle = Bundle(for: Self.self),
                             index: Int = .zero) throws -> Self {
         // Load the Nib.

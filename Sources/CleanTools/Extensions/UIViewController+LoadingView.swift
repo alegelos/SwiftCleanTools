@@ -4,12 +4,18 @@ public extension UIViewController {
     
     /// Displays a LoadingView on top of the current view controller's view.
     ///
-    /// - Returns: The LoadingView instance that is being displayed.
+    /// This method creates a new instance of LoadingView, adds it to the view controller's view, and then animates its appearance. The LoadingView is created from a nib file in the specified bundle.
     ///
-    /// - Throws: An error if the LoadingView couldn't be created.
-    func showLoadingView() throws -> LoadingView {
+    /// - Parameter bundle: The bundle from which to load the LoadingView nib file. The default value is the bundle in which the LoadingView class is defined.
+    ///
+    /// - Returns: The LoadingView instance that has been added to the view and is being displayed.
+    ///
+    /// - Throws: A Swift error if the LoadingView could not be created from the nib file in the specified bundle.
+    ///
+    /// - Note: If the LoadingView could not be created, this method throws a Swift error and does not modify the view controller's view.
+    func showLoadingView(bundle: Bundle = Bundle(for: CleanTools.LoadingView.self)) throws -> LoadingView {
         do {
-            let loadingView = try LoadingView.initFromNib()
+            let loadingView = try LoadingView.initFromNib(bundle: bundle)
             
             view.addSubview(loadingView)
             
@@ -37,6 +43,8 @@ public extension UIViewController {
     /// Removes the provided LoadingView from the current view controller's view.
     ///
     /// - Parameter loadingView: The LoadingView instance to be removed.
+    /// 
+    /// - Note: If the specified LoadingView is not a child of the view controller's view, this method does nothing.
     func hideLoadingView(_ loadingView: LoadingView?) {
         guard let loadingView = loadingView else {
             //TODO: handle case when loadingView is nil
