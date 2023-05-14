@@ -115,6 +115,10 @@ extension StoreViewController: StoreViewModelDelegate {
             storeTableView.reloadData()
         }
     }
+    
+    //Not needed in this case, just as an example
+    func update(field: StoreViewModel.Field) { }
+    func propagate(event: StoreViewModel.Event) { }
 
 }
 

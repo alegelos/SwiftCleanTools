@@ -1,120 +1,133 @@
 # SwiftCleanTools
 
-SwiftCleanTools is a powerful and easy-to-use Swift framework that includes several utility classes and extensions to boost your development productivity.
+SwiftCleanTools is a robust and intuitive Swift framework packed with various utility classes and extensions designed to enhance your development productivity.
 
 ## Features
 
-- Provides ViewModelDelegateProtocol for streamlined communication between ViewModel and View.
-- Extends UITableView and UICollectionView for easy cell registration and dequeuing.
-- Includes protocols and extensions for easy nib loading.
-- Offers useful extensions to UIViewController for handling alerts and loading views.
-- Includes utility classes for working with launch arguments.
-- And much more...
+- `ViewModelDelegateProtocol` for a seamless interaction between ViewModel and View.
+- Extended `UITableView` and `UICollectionView` for effortless cell registration and dequeuing.
+- Protocols and extensions for smooth nib loading.
+- Handy extensions to `UIViewController` for managing alerts and loading views.
+- Utility classes for handling launch arguments.
+- And many more...
 
 ## Installation
 
-To include SwiftCleanTools in your project, you need to add it as a dependency in your Swift Package Manager.
+To incorporate SwiftCleanTools into your project, add it as a dependency in your Swift Package Manager.
 
 ```swift
 dependencies: [
 .package(url: "https://github.com/alegelos/SwiftCleanTools.git", from: "1.0.0")
 ]
-
-
-
-## Usage
-
-### Managing Launch Arguments
-
-SwiftCleanTools provides extensions to ProcessInfo to manage launch arguments in your UI tests. 
-
-```swift
-// Access the raw value of the launch argument for sample data in UI tests
-print(ProcessInfo.processInfo.uiTestSampleData)
-
-// Access the raw value of the launch argument for staging data in UI tests
-print(ProcessInfo.processInfo.uiTestStagingData)
-
-// Get the recognized launch argument that was passed to the app
-print(ProcessInfo.processInfo.launchArgument)
 ```
 
-### Registering Nib-Based Cells
+# ViewModelDelegateProtocol Usage
 
-SwiftCleanTools provides extensions to UICollectionView and UITableView to easily register nib-based cells.
+ViewModelDelegateProtocol creates a structured bridge between a ViewModel and a ViewController. It ensures a clean separation of concerns, with the View handling UI elements and the ViewModel dealing with data and UI events.
 
-```swift
-// Register a nib-based cell for your UICollectionView
-collectionView.registerNibCell(MyCollectionViewCell.self)
+## Protocol Definition
 
-// Register a nib-based cell for your UITableView
-tableView.registerNibCell(MyTableViewCell.self)
-```
-
-### Presenting Alerts
-
-SwiftCleanTools provides extensions to UIViewController to easily present alerts on the view controller.
+Firstly, create a custom protocol that conforms to `ViewModelDelegateProtocol`.
 
 ```swift
-// Present an alert with title, message, and options
-viewController.presentAlert(withTitle: "Title", message: "Message", options: ["OK", "Cancel"])
-```
-
-### Managing Loading Views
-
-SwiftCleanTools provides extensions to UIViewController to display and hide LoadingViews.
-
-```swift
-// Show a loading view
-let loadingView = try? viewController.showLoadingView()
-
-// Hide a loading view
-viewController.hideLoadingView(loadingView)
-```
-
-### Implementing Cell Data Protocol
-
-SwiftCleanTools provides a protocol, CellDataProtocol, for implementing cell data and a protocol, CollectionViewCellProtocol and TableViewCellProtocol, for implementing UICollectionViewCell and UITableViewCell that can be loaded with data conforming to the CellDataProtocol.
-
-```swift
-struct MyCellData: CellDataProtocol {
-    let cellIdentifier: String = "MyCell"
-    let data: String
+protocol YourViewModelDelegate: ViewModelDelegateProtocol {
+    func doAction(_ action: YourViewModel.Action)
+    func update(field: YourViewModel.Field)
+    func propagate(event: YourViewModel.Event)  
 }
+```
 
-class MyCollectionViewCell: UICollectionViewCell, CollectionViewCellProtocol {
-    func configure(with cellData: CellDataProtocol, delegate: AnyObject?) {
-        guard let cellData = cellData as? MyCellData else { return }
-        // configure cell with data
+## Enum Actions
+
+Secondly, define `Action`, `Field`, and `Event` enums within your ViewModel to represent various actions that the View should perform:
+
+```swift
+extension YourViewModel {
+    enum Action {
+        case reloadTableView([CellDataProtocol])
+        case show(Alert)
+        case goTo(View)
+        case showLoadingView(Bool = true)
+        
+        enum Alert {
+            case friendlyError
+            case emptyCart
+        }
+        
+        enum View {
+            case checkout([Item])
+        }
     }
+
+    enum Field { }
+    
+    enum Event { }
 }
 ```
 
-### Instantiating UIView from a Nib
+## ViewModel Implementation
 
-SwiftCleanTools provides a protocol, NibInstantiatable, for ensuring a UIView can be instantiated from a Nib.
+In your ViewModel, invoke the delegate's method to notify the View about any updates:
 
 ```swift
-class MyCustomView: UIView, NibInstantiatable {
-    // ...
-}
-
-if let customView = try? MyCustomView.initFromNib() {
-    // use customView
-}
+delegate?.doAction(.showLoadingView(false))
+delegate?.doAction(.reloadTableView([CellData]))
 ```
 
-### Implementing ViewModel Delegate Protocol
+## ViewController Conformance
 
-SwiftCleanTools provides a protocol, ViewModelDelegateProtocol, for implementing a delegate protocol for a ViewModel.
+In your ViewController, conform to `YourViewModelDelegate`:
 
 ```swift
-class MyViewModel {
-    weak var delegate: ViewModelDelegateProtocol?
-    // ...
+extension YourViewController: YourViewModelDelegate {
+    typealias Action = YourViewModel.Action
+    
+    func doAction(_ action: Action) {
+        switch action {
+            case .show(let alert):
+                handleShow(alert)
+            case .goTo(let view):
+                handleGoTo(view)
+            case .showLoadingView(let show):
+                if show {
+                    loadingView = try? showLoadingView()
+                } else {
+                    hideLoadingView(loadingView)
+                }
+            case .reloadTableView(let updatedItems):
+                items = updatedItems
+                tableView.reloadData()
+        }
+    }
+    
+    func update(field: YourViewModel.Field) { }
+    func propagate(event: YourViewModel.Event) { }
 }
 ```
 
----
+## Forward UI events to ViewModel
 
-This library aims to help developers focus on what matters most - building the unique features of their apps. By taking care of common tasks
+Forward any UI event from the ViewController to the ViewModel.
+
+```swift
+override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    //First setup UI
+    setupView()
+    
+    //Then trigger functionality
+    viewModel.viewDidLoad()
+}
+```
+
+# TableViewCellProtocol Usage
+
+TableViewCellProtocol simplifies UITableView coding by enabling different cell types to be loaded with identical dequeuing code. This keeps your codebase clean, simple, and easy to read. Each cell is responsible for casting the data to its own type.
+
+## Conform Your Cell to TableViewCellProtocol
+
+Your custom cell must conform to the TableViewCellProtocol. Implement the `configure(with:delegate:)` method to assign data to your cell's ViewModel.
+
+```swift
+extension YourCell: TableViewCellProtocol {

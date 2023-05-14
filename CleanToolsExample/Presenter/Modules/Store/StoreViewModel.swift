@@ -7,6 +7,10 @@ protocol StoreViewModelDelegate: ViewModelDelegateProtocol {
     
     func doAction(_ action: StoreViewModel.Action)
     
+    //Not needed in this case, just as an example
+    func update(field: StoreViewModel.Field)
+    func propagate(event: StoreViewModel.Event)
+    
 }
 
 final class StoreViewModel {
@@ -99,5 +103,9 @@ extension StoreViewModel {
         }
         
     }
+    
+    //Enums not needed in this case, just as an example
+    enum Field { }
+    enum Event { }
     
 }
