@@ -13,8 +13,9 @@ public extension UIViewController {
     /// - Throws: A Swift error if the LoadingView could not be created from the nib file in the specified bundle.
     ///
     /// - Note: If the LoadingView could not be created, this method throws a Swift error and does not modify the view controller's view.
-    func showLoadingView(bundle: Bundle = Bundle(for: CleanTools.LoadingView.self)) throws -> LoadingView {
+    func showLoadingView(bundle: Bundle? = nil) throws -> LoadingView {
         do {
+            let bundle = bundle ?? Bundle.module
             let loadingView = try LoadingView.initFromNib(bundle: bundle)
             
             view.addSubview(loadingView)
