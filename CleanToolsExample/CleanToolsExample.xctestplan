@@ -12,7 +12,7 @@
     "codeCoverage" : false,
     "commandLineArgumentEntries" : [
       {
-        "argument" : "uiTestSampleData"
+        "argument" : "sampleData"
       }
     ],
     "targetForVariableExpansion" : {
