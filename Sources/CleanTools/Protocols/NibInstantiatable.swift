@@ -20,9 +20,9 @@ public extension NibInstantiatable {
 public extension NibInstantiatable where Self: UIView {
     
     // Allows the instantiation of a UIView from a Nib.
-    static func initFromNib(index: Int = .zero) throws -> Self {
+    static func initFromNib(bundle: Bundle = Bundle(for: Self.self),
+                            index: Int = .zero) throws -> Self {
         // Load the Nib.
-        let bundle = Bundle(for: self)
         guard let nibObjects = bundle.loadNibNamed(nibName(),
                                                    owner: self,
                                                    options: nil) else {
