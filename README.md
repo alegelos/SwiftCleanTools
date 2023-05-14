@@ -1,6 +1,6 @@
 # SwiftCleanTools
 
-SwiftCleanTools is a robust and intuitive Swift framework packed with various utility classes and extensions designed to enhance your development productivity.
+SwiftCleanTools is a Swift framework packed with various utility protocols and extensions designed to enhance your development productivity and code clarity.
 
 ## Features
 
