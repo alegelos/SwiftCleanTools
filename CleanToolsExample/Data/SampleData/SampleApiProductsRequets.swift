@@ -11,11 +11,11 @@ public final class SampleApiProductsRequets {
         
         switch ProcessInfo.processInfo.launchArgument {
             
-        case .uiTestSampleData:
+        case .sampleData:
             let provider = MoyaProvider<SampleDataApi>(stubClosure: MoyaProvider.immediatelyStub)
             self.provider = provider
             
-        case .none, .uiTestStagingData:
+        case .none, .stagingData:
             self.provider = provider
         }
     }
