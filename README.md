@@ -129,5 +129,66 @@ TableViewCellProtocol simplifies UITableView coding by enabling different cell t
 
 Your custom cell must conform to the TableViewCellProtocol. Implement the `configure(with:delegate:)` method to assign data to your cell's ViewModel.
 
+
 ```swift
 extension YourCell: TableViewCellProtocol {
+    func configure(with cellData: CellDataProtocol, delegate: AnyObject?) {
+        viewModel.assign(cellData: cellData)
+    }
+}
+```
+
+## Create Table Data as an Array of CellDataProtocol
+
+Your table data should be an array that conforms to `CellDataProtocol`. This approach allows you to store data for different cell types in the same array.
+
+```swift
+var items = [CellDataProtocol]()
+```
+
+## Dequeue and Configure Your Cells
+
+In your TableView's data source, dequeue cells using the cellIdentifier from your `CellDataProtocol` object. Cast the dequeued cell to `TableViewCellProtocol` and configure it with the `CellDataProtocol` object.
+
+```swift
+func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cellData = items[indexPath.row]
+    
+    let cell = tableView.dequeueReusableCell(withIdentifier: cellData.cellIdentifier, for: indexPath)
+    guard let cell = cell as? TableViewCellProtocol else {
+        //TODO: report error
+        return UITableViewCell()
+    }
+    cell.configure(with: cellData, delegate: self)
+    
+    return cell
+}
+```
+
+Following this methodology, you can manage various cell types in your TableView using the same dequeuing and configuration code, resulting in a cleaner and more readable codebase.
+
+# Using CellDataProtocol
+
+CellDataProtocol standardizes the way data is passed to your TableViewCells. Here's how you can utilize it:
+
+## Create a Model Conforming to CellDataProtocol
+
+First, create a model that conforms to `CellDataProtocol`. This model will contain all the necessary data for your cell.
+
+```swift
+extension YourCellViewModel {
+    final class Model: CellDataProtocol {
+        var cellIdentifier: String {
+            String(describing: YourCell.self)
+        }
+        
+        let itemData: YourItemType
+        
+        init(_ itemData: YourItemType) {
+            self.itemData = itemData
+        }
+    }
+}
+```
+
+The cellIdentifier is a computed property that returns the cell's class name as a String. This is used to dequeue the cell from the tableView. The cell identifier must match the class name of `YourCell`.
